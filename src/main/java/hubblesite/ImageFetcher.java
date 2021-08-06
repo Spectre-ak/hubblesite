@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -80,9 +82,46 @@ public class ImageFetcher {
 			
 			Document document=Jsoup.connect(url).get();
 			
-			Element imgOptionsList=document.getElementsByClass("media-library-links-list").get(0);
+			ArrayList<String[]> imgsWithRes=getImgsLink(document);
 			
+			for(String ar[]:imgsWithRes) {
+				System.out.println(Arrays.toString(ar));
+			}
+			
+			//terminator-->test
+			break;
 		}
+	}
+	
+	
+	static ArrayList<String[]> getImgsLink(Document document) {
+		
+		ArrayList<String[]> list=new ArrayList<String[]>();
+		
+		
+		Element imgOptionsList=document.getElementsByClass("media-library-links-list").get(0);
+		
+		Elements ImgLinks=imgOptionsList.getElementsByTag("a");
+		
+		
+		for(Element element:ImgLinks) {
+			String imgMetaData=(element.text());
+			String imgInfos[]=imgMetaData.split(",");
+			
+			if(imgInfos[2].toLowerCase().contains("jpg")
+					|| imgInfos[2].toLowerCase().contains("png")) {
+				String linkAndRes[]=new String[2];
+				
+				linkAndRes[0]="https:"+element.attr("href");
+				linkAndRes[1]=imgInfos[1].strip();
+				
+				list.add(linkAndRes);
+			}
+			
+			System.out.println(imgMetaData);
+		}
+		
+		return list;
 	}
 
 }
