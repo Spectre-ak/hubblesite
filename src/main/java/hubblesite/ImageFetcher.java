@@ -1,5 +1,7 @@
 package hubblesite;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -26,6 +28,9 @@ public class ImageFetcher {
 		JSONObject jsonObject=new JSONObject();
 		
 		JSONArray jsonArray=new JSONArray();
+		
+		int totalSize=0;
+		
 		for(int i=1;i<=9;i++) {
 			
 			Document document=
@@ -33,7 +38,7 @@ public class ImageFetcher {
 		
 			
 			Elements elements=document.getElementsByClass("col-sm-4");
-			System.out.println(elements.size());
+			//System.out.println(elements.size());
 			
 			for(Element element:elements) {
 				//System.out.println(element.getElementsByClass("text-overlay__center").get(0).text());
@@ -41,21 +46,23 @@ public class ImageFetcher {
 				jsonArray.put("https://hubblesite.org"+element.getElementsByTag("a").get(0).attr("href"));
 			}
 			
-			System.out.println(jsonArray.length());
+			totalSize+=jsonArray.length();
 			
-			
+			System.out.println(totalSize);
 			
 			//test
 			
-			break;
+			
 		}
 		
 		jsonObject.put("links",jsonArray);
 		
-		System.out.println(jsonObject.toString(3));
+		//System.out.println(jsonObject.toString(3));
+		System.out.println(jsonArray.length());
 		
-		
-		
+		FileWriter fwFileWriter=new FileWriter(new File("hubbleSiteImgs.json"));
+		fwFileWriter.write(jsonObject.toString(3));
+		fwFileWriter.close();
 		
 		
 	}
