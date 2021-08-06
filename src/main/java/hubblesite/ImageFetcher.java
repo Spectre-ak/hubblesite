@@ -32,7 +32,13 @@ public class ImageFetcher {
 		
 		for(Element element:elements) {
 			System.out.println(element.getElementsByClass("text-overlay__center").get(0).text());
+			System.out.println(element.getElementsByTag("a").get(0).attr("href"));
+			
 		}
+		
+		
+		
+		
 	}
 
 }
