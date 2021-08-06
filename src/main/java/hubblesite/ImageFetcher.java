@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,19 +23,37 @@ public class ImageFetcher {
 //			System.out.println(scanner.nextLine());
 //		}
 //		
+		JSONObject jsonObject=new JSONObject();
 		
-		Document document=Jsoup.connect("https://hubblesite.org/resource-gallery/images?filterUUID=4c394bbb-b21e-43ab-a160-2a4521d70243&page=1&itemsPerPage=600&").get();
-	
-		System.out.println(document.title());
-		
-		Elements elements=document.getElementsByClass("col-sm-4");
-		System.out.println(elements.size());
-		
-		for(Element element:elements) {
-			System.out.println(element.getElementsByClass("text-overlay__center").get(0).text());
-			System.out.println(element.getElementsByTag("a").get(0).attr("href"));
+		JSONArray jsonArray=new JSONArray();
+		for(int i=1;i<=9;i++) {
 			
+			Document document=
+					Jsoup.connect("https://hubblesite.org/resource-gallery/images?page="+i+"&itemsPerPage=600&").get();
+		
+			
+			Elements elements=document.getElementsByClass("col-sm-4");
+			System.out.println(elements.size());
+			
+			for(Element element:elements) {
+				//System.out.println(element.getElementsByClass("text-overlay__center").get(0).text());
+				//System.out.println(element.getElementsByTag("a").get(0).attr("href"));
+				jsonArray.put("https://hubblesite.org"+element.getElementsByTag("a").get(0).attr("href"));
+			}
+			
+			System.out.println(jsonArray.length());
+			
+			
+			
+			//test
+			
+			break;
 		}
+		
+		jsonObject.put("links",jsonArray);
+		
+		System.out.println(jsonObject.toString(3));
+		
 		
 		
 		
