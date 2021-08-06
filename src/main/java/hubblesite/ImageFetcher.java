@@ -1,6 +1,7 @@
 package hubblesite;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.Scanner;
@@ -17,14 +18,14 @@ import org.jsoup.select.Elements;
 public class ImageFetcher {
 
 	public static void main(String[] args) throws Exception{
-		// TODO Auto-generated method stub
-//		URL url=new URL("https://hubblesite.org/resource-gallery/images");
-//		HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
-//		Scanner scanner=new Scanner(httpsURLConnection.getInputStream());
-//		while(scanner.hasNextLine()) {
-//			System.out.println(scanner.nextLine());
-//		}
-//		
+	
+		
+		ProcessImgs();
+		
+	}
+	
+	static void SaveAllImgs() throws Exception{
+		
 		JSONObject jsonObject=new JSONObject();
 		
 		JSONArray jsonArray=new JSONArray();
@@ -38,11 +39,7 @@ public class ImageFetcher {
 		
 			
 			Elements elements=document.getElementsByClass("col-sm-4");
-			//System.out.println(elements.size());
-			
 			for(Element element:elements) {
-				//System.out.println(element.getElementsByClass("text-overlay__center").get(0).text());
-				//System.out.println(element.getElementsByTag("a").get(0).attr("href"));
 				jsonArray.put("https://hubblesite.org"+element.getElementsByTag("a").get(0).attr("href"));
 			}
 			
@@ -57,7 +54,6 @@ public class ImageFetcher {
 		
 		jsonObject.put("links",jsonArray);
 		
-		//System.out.println(jsonObject.toString(3));
 		System.out.println(jsonArray.length());
 		
 		FileWriter fwFileWriter=new FileWriter(new File("hubbleSiteImgs.json"));
@@ -65,6 +61,28 @@ public class ImageFetcher {
 		fwFileWriter.close();
 		
 		
+	}
+	static void ProcessImgs() throws Exception {
+		Scanner scanner=new Scanner(new File("hubbleSiteImgs.json"));
+		String string="";
+		while(scanner.hasNextLine()) {
+			string+=scanner.nextLine();
+		}
+		JSONObject jsonObject=new JSONObject(string);
+		
+		JSONArray jsonArray=jsonObject.getJSONArray("links");
+		
+		
+		
+		for(Object obj:jsonArray) {
+			
+			String url=obj.toString();
+			
+			Document document=Jsoup.connect(url).get();
+			
+			Element imgOptionsList=document.getElementsByClass("media-library-links-list").get(0);
+			
+		}
 	}
 
 }
