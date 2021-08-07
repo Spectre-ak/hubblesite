@@ -77,9 +77,11 @@ public class ImageFetcher {
 		
 		JSONArray jsonArray=jsonObject.getJSONArray("links");
 		
-		
+		int dataCount=0;
 		
 		for(Object obj:jsonArray) {
+			
+			dataCount++;
 			
 			String url=obj.toString();
 			
@@ -93,6 +95,10 @@ public class ImageFetcher {
 			
 			//terminator-->test
 			//break;
+			System.out.println("===========================");
+			System.out.println(dataCount);
+			System.out.println("===========================");
+			
 		}
 	}
 	
