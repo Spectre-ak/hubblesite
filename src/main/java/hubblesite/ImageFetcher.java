@@ -92,7 +92,7 @@ public class ImageFetcher {
 			}
 			
 			//terminator-->test
-			break;
+			//break;
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class ImageFetcher {
 				ext=imgUrl.charAt(i)+ext;
 			}
 			ext=ext.toLowerCase();
-			System.out.println(ext);
+			//System.out.println(ext);
 			
 			if(ext.equals("png") || ext.equals("jpg") || ext.equals("jpeg")) {
 				String ar[]=new String[2];
@@ -134,7 +134,7 @@ public class ImageFetcher {
 				list.add(ar);
 			}
 			
-			System.out.println(imgMetaData);
+			//System.out.println(imgMetaData);
 		}
 		
 		return list;
