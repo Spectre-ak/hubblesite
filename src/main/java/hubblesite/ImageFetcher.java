@@ -64,6 +64,9 @@ public class ImageFetcher {
 		
 		
 	}
+	/**
+	 * @throws Exception
+	 */
 	static void ProcessImgs() throws Exception {
 		Scanner scanner=new Scanner(new File("hubbleSiteImgs.json"));
 		String string="";
@@ -106,16 +109,29 @@ public class ImageFetcher {
 		
 		for(Element element:ImgLinks) {
 			String imgMetaData=(element.text());
-			String imgInfos[]=imgMetaData.split(",");
+			String imgUrl=element.attr("href");
 			
-			if(imgInfos[2].toLowerCase().contains("jpg")
-					|| imgInfos[2].toLowerCase().contains("png")) {
-				String linkAndRes[]=new String[2];
-				
-				linkAndRes[0]="https:"+element.attr("href");
-				linkAndRes[1]=imgInfos[1].strip();
-				
-				list.add(linkAndRes);
+			String ext="";
+			for(int i=imgUrl.length()-1;i>=0;i--) {
+				if(imgUrl.charAt(i)=='.')
+					break;
+				ext=imgUrl.charAt(i)+ext;
+			}
+			ext=ext.toLowerCase();
+			System.out.println(ext);
+			
+			if(ext.equals("png") || ext.equals("jpg") || ext.equals("jpeg")) {
+				String ar[]=new String[2];
+				ar[0]="https:"+imgUrl;
+				String metas[]=imgMetaData.split(",");
+				for(String meta:metas) {
+					
+					if(meta.toLowerCase().contains("x")) {
+						ar[1]=meta;
+						break;
+					}
+				}
+				list.add(ar);
 			}
 			
 			System.out.println(imgMetaData);
