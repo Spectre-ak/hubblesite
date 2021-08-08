@@ -18,6 +18,7 @@ public class ImgResourceDetails {
 	}
 	
 	public String getImageReleaseDate() {
-		return this.detailRow.getElementsByClass("col-md-4").get(0).text();
+		return this.detailRow.getElementsByClass("col-md-4").get(0)
+				.getElementsByTag("p").get(0).text();
 	}
 }
