@@ -98,7 +98,7 @@ public class ImageFetcher {
 			ImgResourceDetails imgResourceDetails=new ImgResourceDetails(document);
 		
 			System.out.println(imgResourceDetails.getImageTitle());
-			
+			System.out.println(imgResourceDetails.getImageReleaseDate());
 			
 			//terminator-->test
 			//break;
