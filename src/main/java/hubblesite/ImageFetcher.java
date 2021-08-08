@@ -87,9 +87,17 @@ public class ImageFetcher {
 			
 			Document document=Jsoup.connect(url).get();
 			
+			//image links with resolution retriever, only jpg and png files
 			ArrayList<String[]> imgsWithRes=getImgsLink(document);
 			
 			printListAr(imgsWithRes);
+			
+			
+			//Retrieving Image details
+			
+			ImgResourceDetails imgResourceDetails=new ImgResourceDetails(document);
+		
+			System.out.println(imgResourceDetails.getImageTitle());
 			
 			
 			//terminator-->test
