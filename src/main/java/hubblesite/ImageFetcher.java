@@ -89,9 +89,8 @@ public class ImageFetcher {
 			
 			ArrayList<String[]> imgsWithRes=getImgsLink(document);
 			
-			for(String ar[]:imgsWithRes) {
-				System.out.println(Arrays.toString(ar));
-			}
+			printListAr(imgsWithRes);
+			
 			
 			//terminator-->test
 			//break;
@@ -145,5 +144,10 @@ public class ImageFetcher {
 		
 		return list;
 	}
-
+	
+	static void printListAr(ArrayList<String[]> imgsWithRes) {
+		for(String ar[]:imgsWithRes) {
+			System.out.println(Arrays.toString(ar));
+		}
+	}
 }
