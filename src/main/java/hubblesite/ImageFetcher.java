@@ -135,6 +135,10 @@ public class ImageFetcher {
 		FileWriter fw=new FileWriter(new File("imgArray.json"));
 		fw.write(imgArray.toString(3));
 		fw.close();
+		
+		System.out.println("xxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("Image Scrapping done");
+		System.out.println("xxxxxxxxxxxxxxxxxxxxx");
 	}
 	
 	
