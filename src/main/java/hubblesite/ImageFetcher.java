@@ -79,6 +79,10 @@ public class ImageFetcher {
 		
 		int dataCount=0;
 		
+		JSONArray imgArray=new JSONArray();
+		
+		
+		
 		for(Object obj:jsonArray) {
 			
 			dataCount++;
@@ -90,25 +94,40 @@ public class ImageFetcher {
 			//image links with resolution retriever, only jpg and png files
 			ArrayList<String[]> imgsWithRes=getImgsLink(document);
 			
-			printListAr(imgsWithRes);
+			//printListAr(imgsWithRes);
 			
 			
 			//Retrieving Image details
 			
 			ImgResourceDetails imgResourceDetails=new ImgResourceDetails(document);
 		
-			System.out.println(imgResourceDetails.getImageTitle());
-			System.out.println(imgResourceDetails.getImageReleaseDate());
-			System.out.println(imgResourceDetails.getImageTags());
-			System.out.println(imgResourceDetails.getImageInfo());
+			//System.out.println(imgResourceDetails.getImageTitle());
+			//System.out.println(imgResourceDetails.getImageReleaseDate());
+			//System.out.println(imgResourceDetails.getImageTags());
+			//System.out.println(imgResourceDetails.getImageInfo());
 			
+			JSONObject imgObj=new JSONObject();
+			
+			imgObj.put("imgWithRes",imgsWithRes);
+			imgObj.put("title",imgResourceDetails.getImageTitle());
+			imgObj.put("date",imgResourceDetails.getImageReleaseDate());
+			imgObj.put("tags",imgResourceDetails.getImageTags());
+			imgObj.put("info",imgResourceDetails.getImageInfo());
+			
+			imgArray.put(imgObj);
 			//terminator-->test
 			//break;
-			System.out.println("===========================");
+			//System.out.println("===========================");
 			System.out.println(dataCount);
-			System.out.println("===========================");
+			//System.out.println("===========================");
 			
+//			if(dataCount==5)
+//				break;
 		}
+		
+		FileWriter fw=new FileWriter(new File("imgArray.json"));
+		fw.write(imgArray.toString(3));
+		fw.close();
 	}
 	
 	
