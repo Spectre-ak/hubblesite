@@ -99,7 +99,7 @@ public class ImageFetcher {
 		
 			System.out.println(imgResourceDetails.getImageTitle());
 			System.out.println(imgResourceDetails.getImageReleaseDate());
-			
+			System.out.println(imgResourceDetails.getImageTags());
 			//terminator-->test
 			//break;
 			System.out.println("===========================");
