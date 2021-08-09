@@ -34,4 +34,20 @@ public class ImgResourceDetails {
 		}
 		return keywordTags;
 	}
+	
+	public String getImageInfo() {
+		this.detailRow.getElementsByClass("col-md-8").get(0)
+			.getElementsByClass("keyword-tag").remove();
+		
+		String info = this.detailRow.getElementsByClass("col-md-8").text();
+		info=info.strip();
+		
+		if(info.startsWith("About This Image")) {
+			info=info.substring(16,info.length());
+		}
+		if(info.endsWith("Keywords:")) {
+			info=info.substring(0,info.length()-9);
+		}
+		return info.strip();
+	}
 }
