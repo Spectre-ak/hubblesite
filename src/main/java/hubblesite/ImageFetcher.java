@@ -85,44 +85,51 @@ public class ImageFetcher {
 		
 		for(Object obj:jsonArray) {
 			
-			dataCount++;
+			try {
+				
+				dataCount++;
+				
+				String url=obj.toString();
+				
+				Document document=Jsoup.connect(url).get();
+				
+				//image links with resolution retriever, only jpg and png files
+				ArrayList<String[]> imgsWithRes=getImgsLink(document);
+				
+				//printListAr(imgsWithRes);
+				
+				
+				//Retrieving Image details
+				
+				ImgResourceDetails imgResourceDetails=new ImgResourceDetails(document);
 			
-			String url=obj.toString();
-			
-			Document document=Jsoup.connect(url).get();
-			
-			//image links with resolution retriever, only jpg and png files
-			ArrayList<String[]> imgsWithRes=getImgsLink(document);
-			
-			//printListAr(imgsWithRes);
-			
-			
-			//Retrieving Image details
-			
-			ImgResourceDetails imgResourceDetails=new ImgResourceDetails(document);
-		
-			//System.out.println(imgResourceDetails.getImageTitle());
-			//System.out.println(imgResourceDetails.getImageReleaseDate());
-			//System.out.println(imgResourceDetails.getImageTags());
-			//System.out.println(imgResourceDetails.getImageInfo());
-			
-			JSONObject imgObj=new JSONObject();
-			
-			imgObj.put("imgWithRes",imgsWithRes);
-			imgObj.put("title",imgResourceDetails.getImageTitle());
-			imgObj.put("date",imgResourceDetails.getImageReleaseDate());
-			imgObj.put("tags",imgResourceDetails.getImageTags());
-			imgObj.put("info",imgResourceDetails.getImageInfo());
-			
-			imgArray.put(imgObj);
-			//terminator-->test
-			//break;
-			//System.out.println("===========================");
-			System.out.println(dataCount);
-			//System.out.println("===========================");
-			
-//			if(dataCount==5)
-//				break;
+				//System.out.println(imgResourceDetails.getImageTitle());
+				//System.out.println(imgResourceDetails.getImageReleaseDate());
+				//System.out.println(imgResourceDetails.getImageTags());
+				//System.out.println(imgResourceDetails.getImageInfo());
+				
+				JSONObject imgObj=new JSONObject();
+				
+				imgObj.put("imgWithRes",imgsWithRes);
+				imgObj.put("title",imgResourceDetails.getImageTitle());
+				imgObj.put("date",imgResourceDetails.getImageReleaseDate());
+				imgObj.put("tags",imgResourceDetails.getImageTags());
+				imgObj.put("info",imgResourceDetails.getImageInfo());
+				
+				imgArray.put(imgObj);
+				//terminator-->test
+				//break;
+				//System.out.println("===========================");
+				System.out.println(dataCount);
+				//System.out.println("===========================");
+				
+//				if(dataCount==5)
+//					break;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
 		}
 		
 		FileWriter fw=new FileWriter(new File("imgArray.json"));
