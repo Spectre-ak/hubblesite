@@ -39,5 +39,11 @@ public class VideoRescDetails {
 		return this.document.getElementsByClass("col-md-4").get(0)
 				.getElementsByTag("p").get(0).text().strip();
 	}
+	
+	
+	public String getInfo() {
+		
+		return null;
+	}
 }
 
