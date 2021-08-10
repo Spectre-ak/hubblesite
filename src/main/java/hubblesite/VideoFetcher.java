@@ -26,7 +26,7 @@ public class VideoFetcher {
 		for(Element element:elements) {
 			String link=element.getElementsByTag("a").get(0).attr("href");
 			System.out.println(link);
-			jsonArray.put(link);
+			jsonArray.put("https://hubblesite.org"+link);
 		}
 		JSONObject jsonObject=new JSONObject();
 		jsonObject.put("links",jsonArray);
