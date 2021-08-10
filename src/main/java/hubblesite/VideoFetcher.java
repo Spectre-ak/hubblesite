@@ -1,7 +1,9 @@
 package hubblesite;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,7 +18,8 @@ public class VideoFetcher {
 		// TODO Auto-generated method stub
 		//base url 
 		//https://hubblesite.org/resource-gallery/videos?itemsPerPage=1000&page=1
-		SaveVideoLinks();
+		
+		
 	}
 	static void SaveVideoLinks() throws Exception{
 		Document document=Jsoup.connect("https://hubblesite.org/resource-gallery/videos?itemsPerPage=1000&page=1").get();
@@ -34,5 +37,21 @@ public class VideoFetcher {
 		FileWriter fileWriter=new FileWriter(new File("VideoLinksHubble.json"));
 		fileWriter.write(jsonObject.toString(3));
 		fileWriter.close();
+	}
+	
+	static void processLinks() throws Exception{
+		Scanner scanner=new Scanner(new File("VideoLinksHubble.json"));
+		String videoLinksJSONstr="";
+		while(scanner.hasNextLine()) {
+			videoLinksJSONstr+=scanner.nextLine();
+		}
+		JSONObject jsonObject=new JSONObject(videoLinksJSONstr);
+		JSONArray jsonArray=jsonObject.getJSONArray("links");
+		
+		for(Object object:jsonArray) {
+			String link=object.toString();
+			Document document=Jsoup.connect(link).get();
+			
+		}
 	}
 }
