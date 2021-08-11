@@ -15,6 +15,12 @@ public class VideoRescDetails {
 
 	public ArrayList<String[]> getDownloadOps(){
 		
+		Elements elements=this.document.getElementsByClass("resource-gallery-detail").get(0)
+			.getElementsByClass("media-library-links-list");
+		
+		for(Element element:elements) {
+			System.out.println(element.toString());
+		}
 		
 		return null;
 	}
@@ -26,7 +32,8 @@ public class VideoRescDetails {
 	
 	
 	public ArrayList<String> getVideoTags() {
-		Elements keywordTags=document.getElementsByClass("keyword-tag");
+		Elements keywordTags=document.getElementsByClass("resource-gallery-detail").get(0)
+				.getElementsByClass("keyword-tag");
 		ArrayList<String> tagsArrayList=new ArrayList<String>();
 		
 		for(Element element:keywordTags) {
@@ -42,8 +49,21 @@ public class VideoRescDetails {
 	
 	
 	public String getInfo() {
+		this.document.getElementsByClass("resource-gallery-detail").get(0)
+			.getElementsByClass("col-md-8").get(0)
+			.getElementsByClass("keyword-tag").remove();
 		
-		return null;
+		String info = this.document.getElementsByClass("col-md-8").text();
+		info=info.strip();
+		
+		if(info.startsWith("About This Image")) {
+			info=info.substring(16,info.length());
+		}
+		if(info.endsWith("Keywords:")) {
+			info=info.substring(0,info.length()-9);
+		}
+		return info.strip();
+		
 	}
 }
 
