@@ -18,7 +18,7 @@ public class VideoFetcher {
 		// TODO Auto-generated method stub
 		//base url 
 		//https://hubblesite.org/resource-gallery/videos?itemsPerPage=1000&page=1
-		
+		processLinks();
 		
 	}
 	static void SaveVideoLinks() throws Exception{
@@ -48,9 +48,23 @@ public class VideoFetcher {
 		JSONObject jsonObject=new JSONObject(videoLinksJSONstr);
 		JSONArray jsonArray=jsonObject.getJSONArray("links");
 		
+		int dataCount=0;
+		
 		for(Object object:jsonArray) {
+		
+			dataCount++;
+			
 			String link=object.toString();
+			System.out.println(link);
+	
+			
+			System.out.println(link);
+			
+			
 			Document document=Jsoup.connect(link).get();
+			
+			VideoRescDetails videoRescDetails=new VideoRescDetails(document);
+			System.out.println(videoRescDetails.getDownloadOps());
 			
 		}
 	}
