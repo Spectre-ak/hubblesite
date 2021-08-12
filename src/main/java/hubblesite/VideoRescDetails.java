@@ -63,7 +63,7 @@ public class VideoRescDetails {
 		String info = this.document.getElementsByClass("col-md-8").text();
 		info=info.strip();
 		
-		if(info.startsWith("About This Image")) {
+		if(info.startsWith("About This Video")) {
 			info=info.substring(16,info.length());
 		}
 		if(info.endsWith("Keywords:")) {
