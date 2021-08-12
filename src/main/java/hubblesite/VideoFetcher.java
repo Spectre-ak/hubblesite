@@ -3,6 +3,7 @@ package hubblesite;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -57,15 +58,15 @@ public class VideoFetcher {
 			String link=object.toString();
 			System.out.println(link);
 	
-			
-			System.out.println(link);
-			
-			
+		
 			Document document=Jsoup.connect(link).get();
 			
 			VideoRescDetails videoRescDetails=new VideoRescDetails(document);
-			System.out.println(videoRescDetails.getDownloadOps());
-			
+			//System.out.println(videoRescDetails.getDownloadOps());
+			for(String ar[]:videoRescDetails.getDownloadOps()) {
+				System.out.println(Arrays.toString(ar));
+			}
+			break;
 		}
 	}
 }
