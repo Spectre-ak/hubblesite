@@ -62,10 +62,18 @@ public class VideoFetcher {
 			Document document=Jsoup.connect(link).get();
 			
 			VideoRescDetails videoRescDetails=new VideoRescDetails(document);
-			//System.out.println(videoRescDetails.getDownloadOps());
+			
+			System.out.println(videoRescDetails.getTitle());
+			System.out.println(videoRescDetails.getVideoReleaseDate());
+			System.out.println(videoRescDetails.getVideoTags());
+			System.out.println(videoRescDetails.getInfo());
+			
 			for(String ar[]:videoRescDetails.getDownloadOps()) {
 				System.out.println(Arrays.toString(ar));
 			}
+			
+			
+			
 			break;
 		}
 	}
