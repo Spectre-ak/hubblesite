@@ -16,13 +16,20 @@ public class VideoRescDetails {
 	public ArrayList<String[]> getDownloadOps(){
 		
 		Elements elements=this.document.getElementsByClass("resource-gallery-detail").get(0)
-			.getElementsByClass("media-library-links-list");
+			.getElementsByClass("media-library-links-list").get(0)
+			.getElementsByTag("a");
+		
+		ArrayList<String[]> arrayList=new ArrayList<String[]>();
 		
 		for(Element element:elements) {
-			System.out.println(element.toString());
+			//System.out.println(element.text());
+			String ar[]=new String[2];
+			ar[0]="https:"+element.attr("href");
+			ar[1]=element.text();
+			arrayList.add(ar);
 		}
 		
-		return null;
+		return arrayList;
 	}
 	
 	public String getTitle() {
