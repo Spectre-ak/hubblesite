@@ -51,30 +51,45 @@ public class VideoFetcher {
 		
 		int dataCount=0;
 		
+		JSONArray jsonArray2=new JSONArray();
+		
 		for(Object object:jsonArray) {
+			try {
+				dataCount++;
+				
+				String link=object.toString();
+				System.out.println(dataCount);
 		
-			dataCount++;
 			
-			String link=object.toString();
-			System.out.println(link);
-	
-		
-			Document document=Jsoup.connect(link).get();
-			
-			VideoRescDetails videoRescDetails=new VideoRescDetails(document);
-			
-			System.out.println(videoRescDetails.getTitle());
-			System.out.println(videoRescDetails.getVideoReleaseDate());
-			System.out.println(videoRescDetails.getVideoTags());
-			System.out.println(videoRescDetails.getInfo());
-			
-			for(String ar[]:videoRescDetails.getDownloadOps()) {
-				System.out.println(Arrays.toString(ar));
+				Document document=Jsoup.connect(link).get();
+				
+				VideoRescDetails videoRescDetails=new VideoRescDetails(document);
+				
+				JSONObject obj=new JSONObject();
+				obj.put("title",videoRescDetails.getTitle());
+				
+				
+				obj.put("title",videoRescDetails.getTitle());
+				obj.put("date",videoRescDetails.getVideoReleaseDate());
+				obj.put("tags",videoRescDetails.getVideoTags());
+				obj.put("info",videoRescDetails.getInfo());
+				obj.put("videoLinks",videoRescDetails.getDownloadOps());
+				
+				jsonArray2.put(obj);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
-			
-			
-			
-			break;
+		
 		}
+		
+		FileWriter fwFileWriter=new FileWriter(new File("vidArray.json"));
+		fwFileWriter.write(jsonArray2.toString(3));
+		fwFileWriter.close();
+		
+		
+		System.out.println("xxxxxxxxxxxxxxxxxxxxx");
+		System.out.println("Video Scrapping done");
+		System.out.println("xxxxxxxxxxxxxxxxxxxxx");
 	}
 }
